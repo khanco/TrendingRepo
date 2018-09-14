@@ -1,0 +1,15 @@
+<resources>
+  <string name="app_name">TrendingRepo</string>
+  <string name="image">image</string>
+  <string name="generic_error_msg">Something went wrong, please try after sometime!</string>
+  <string name="no_internet">No Internet</string>
+  <string name="git_hub_trending_repositories">Git Hub Trending Repositories</string>
+  <string name="more_details"><u>More Details -></u></string>
+
+  // Formatting Strings
+  <string name="author_name">Author : %s</string>
+  <string name="language">Language : %s</string>
+  <string name="stars">Stars : %s</string>
+  <string name="forks">Forks : %s</string>
+  <string name="desc">Description : %s</string>
+</resources>

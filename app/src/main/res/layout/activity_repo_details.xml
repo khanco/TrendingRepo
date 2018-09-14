@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp55"
+        android:background="@color/colorPrimaryDark"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/font18"
+        tools:text="Repo Title"
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp150"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/separator"
+        android:paddingBottom="@dimen/dp20"
+        android:paddingTop="@dimen/dp20"
+        android:src="@drawable/ic_github"
+        />
+
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp20"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/font14"
+        tools:text="Author name"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/separator"
+        />
+
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp20"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/font14"
+        tools:text="Language"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/separator"
+        />
+
+    <TextView
+        android:id="@+id/tvStars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp20"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/font14"
+        tools:text="Stars"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/separator"
+        />
+
+
+    <TextView
+        android:id="@+id/tvForks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp20"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/font14"
+        tools:text="Forks"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/separator"
+        />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp20"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/font12"
+        tools:text="Description goes here"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/separator"
+        />
+
+    <TextView
+        android:id="@+id/tvMoreDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp20"
+        android:text="@string/more_details"
+        android:textColor="@color/link_color"
+        android:textSize="@dimen/font12"
+        />
+
+  </LinearLayout>
+</ScrollView>
