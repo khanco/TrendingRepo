@@ -1,35 +1,32 @@
-package com.xapo.gitrepos.screens.trendingrepos.mvp.views
+package com.xapo.gitrepos.screens.trendingrepos.mvvm.views
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.xapo.gitrepos.R
-import com.xapo.gitrepos.R.layout
-import com.xapo.gitrepos.screens.repodetails.RepoDetailsActivity
-import com.xapo.gitrepos.screens.trendingrepos.mvp.model.RepositoryDetails
-import com.xapo.gitrepos.screens.trendingrepos.mvp.presenter.TrendingListPresenter
+import com.xapo.gitrepos.screens.repodetails.mvvm.views.RepoDetailsActivity
+import com.xapo.gitrepos.commonmodels.RepositoryDetailsModel
+import com.xapo.gitrepos.databinding.ActivityTrendingRepoListBinding
+import com.xapo.gitrepos.screens.trendingrepos.mvvm.viewmodels.TrendingRepoListingViewModel
 import com.xapo.gitrepos.utils.UtilFunctions
 import kotlinx.android.synthetic.main.activity_trending_repo_list.progressBar
 import kotlinx.android.synthetic.main.activity_trending_repo_list.recyclerTrendingRepoList
 
 class TrendingGitRepoListActivity : AppCompatActivity(), ITrendingGitRepoListView, TrendingRepoListAdapter.IRepoSelection {
 
-  private lateinit var trendingListPresenter: TrendingListPresenter
-  private var listRepo: List<RepositoryDetails> = emptyList()
+  private var listRepo: List<RepositoryDetailsModel> = emptyList()
+  private lateinit var viewModel: TrendingRepoListingViewModel
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(layout.activity_trending_repo_list)
+    initBinding()
     initUI()
-    initPresenter()
+    fetchTrendingRepos()
   }
 
-  private fun initUI() {
-    recyclerTrendingRepoList.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
-  }
-
-  private fun initPresenter() {
+  private fun fetchTrendingRepos() {
 
     if (!UtilFunctions.instance.isNetworkAvailable(applicationContext)) {
       UtilFunctions.instance.showToast(applicationContext, resources.getString(R.string.no_internet))
@@ -37,12 +34,20 @@ class TrendingGitRepoListActivity : AppCompatActivity(), ITrendingGitRepoListVie
       return
     }
 
-    trendingListPresenter = TrendingListPresenter()
-    trendingListPresenter.initInterface(this)
-    trendingListPresenter.fetchTrendingRepos()
+    viewModel.fetchTrendingRepos()
   }
 
-  override fun showTrendingList(response: List<RepositoryDetails>) {
+  private fun initBinding() {
+    val activityTrendingRepoListBinding: ActivityTrendingRepoListBinding = DataBindingUtil.setContentView(this, R.layout.activity_trending_repo_list)
+    viewModel = TrendingRepoListingViewModel(this)
+    activityTrendingRepoListBinding.viewModel = viewModel
+  }
+
+  private fun initUI() {
+    recyclerTrendingRepoList.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+  }
+
+  override fun showTrendingList(response: List<RepositoryDetailsModel>) {
     listRepo = response
     val trendingRepoAdapter = TrendingRepoListAdapter(listRepo)
     trendingRepoAdapter.initInterface(this)
@@ -62,8 +67,8 @@ class TrendingGitRepoListActivity : AppCompatActivity(), ITrendingGitRepoListVie
     progressBar.visibility = View.GONE
   }
 
-  override fun onRepoSelected(position: Int) {
-    startActivity(RepoDetailsActivity.makeIntent(applicationContext, listRepo[position]))
+  override fun onItemClick(position: Int) {
+    viewModel.onItemClick(listRepo[position])
   }
 }
 

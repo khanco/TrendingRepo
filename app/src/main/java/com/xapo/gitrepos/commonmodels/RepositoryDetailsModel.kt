@@ -1,4 +1,4 @@
-package com.xapo.gitrepos.screens.trendingrepos.mvp.model
+package com.xapo.gitrepos.commonmodels
 
 import com.google.gson.annotations.SerializedName
 import org.parceler.Parcel
@@ -6,7 +6,7 @@ import org.parceler.Parcel.Serialization.BEAN
 import org.parceler.ParcelConstructor
 
 @Parcel(BEAN)
-data class RepositoryDetails @ParcelConstructor constructor(
+data class RepositoryDetailsModel @ParcelConstructor constructor(
 
   @SerializedName("author") var author: String,
   @SerializedName("name") var name: String,

@@ -14,7 +14,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
     <activity
-        android:name=".screens.trendingrepos.mvp.views.TrendingGitRepoListActivity"
+        android:name=".screens.trendingrepos.mvvm.views.TrendingGitRepoListActivity"
         android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
@@ -24,7 +24,7 @@
     </activity>
 
     <activity
-        android:name=".screens.repodetails.RepoDetailsActivity"
+        android:name=".screens.repodetails.mvvm.views.RepoDetailsActivity"
         android:screenOrientation="portrait">
     </activity>
   </application>

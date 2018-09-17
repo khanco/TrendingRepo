@@ -4,8 +4,15 @@ import retrofit2.Retrofit
 
 class ApiManager {
 
-  private val retrofit: Retrofit = RetrofitProvider().createRetrofit()
-  private val service: Service = retrofit.create(Service::class.java)
+  private var retrofit: Retrofit? = null
+  private var service: Service? = null
 
-  fun fetchTrendingRepos() = service.fetchTrendingRepos()
+  init {
+    if (retrofit == null) {
+      retrofit = RetrofitProvider().createRetrofit()
+      service = retrofit!!.create(Service::class.java)
+    }
+  }
+
+  fun fetchTrendingRepos() = service!!.fetchTrendingRepos()
 }
