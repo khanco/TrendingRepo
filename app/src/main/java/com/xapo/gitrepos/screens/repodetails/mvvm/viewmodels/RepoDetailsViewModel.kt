@@ -9,8 +9,4 @@ class RepoDetailsViewModel {
   fun setVisibility(data: String): Int {
     return if (TextUtils.isEmpty(data)) GONE else VISIBLE
   }
-
-  fun onMoreDetailsClick(url: String) {
-    
-  }
 }
