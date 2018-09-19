@@ -38,6 +38,6 @@ class RepoDetailsActivity : AppCompatActivity() {
   private fun initBinding() {
     val activityRepoDetailsBinding: ActivityRepoDetailsBinding = DataBindingUtil.setContentView(this,  R.layout.activity_repo_details)
     activityRepoDetailsBinding.model = repo
-    activityRepoDetailsBinding.viewModel = RepoDetailsViewModel(this)
+    activityRepoDetailsBinding.viewModel = RepoDetailsViewModel()
   }
 }

@@ -1,19 +1,25 @@
 package com.xapo.gitrepos.screens.trendingrepos.mvvm.viewmodels
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import com.xapo.gitrepos.commonmodels.RepositoryDetailsModel
 import com.xapo.gitrepos.network.ApiManager
-import com.xapo.gitrepos.screens.repodetails.mvvm.views.RepoDetailsActivity
-import com.xapo.gitrepos.screens.trendingrepos.mvvm.views.ITrendingGitRepoListView
-import com.xapo.gitrepos.screens.trendingrepos.mvvm.views.TrendingGitRepoListActivity
+import com.xapo.gitrepos.utils.GenericStatus
+import com.xapo.gitrepos.utils.GenericStatus.ERROR
+import com.xapo.gitrepos.utils.GenericStatus.SUCCESS
 import com.xapo.gitrepos.utils.UtilFunctions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class TrendingRepoListingViewModel(private val trendingGitRepoListActivity: TrendingGitRepoListActivity) {
+class TrendingRepoListingViewModel @Inject internal constructor(private val apiManager: ApiManager) {
 
-  private var apiManager: ApiManager = ApiManager()
-  private var iTrendingGitRepoListView: ITrendingGitRepoListView = trendingGitRepoListActivity
+  private val status = MutableLiveData<GenericStatus>()
+  private val data = MutableLiveData<List<RepositoryDetailsModel>>()
+
+  fun getStatus(): LiveData<GenericStatus> = status
+  fun getData(): LiveData<List<RepositoryDetailsModel>> = data
 
   fun fetchTrendingRepos() {
 
@@ -22,22 +28,18 @@ class TrendingRepoListingViewModel(private val trendingGitRepoListActivity: Tren
         .observeOn(AndroidSchedulers.mainThread())
         .subscribeWith(object : DisposableObserver<List<RepositoryDetailsModel>>() {
           override fun onNext(response: List<RepositoryDetailsModel>) {
-            iTrendingGitRepoListView.showTrendingList(response)
+            status.value = SUCCESS
+            data.value = response
           }
 
           override fun onError(e: Throwable) {
             UtilFunctions.instance.logger(TrendingRepoListingViewModel::class.java.name, e)
-            iTrendingGitRepoListView.hideLoader()
-            iTrendingGitRepoListView.showErrorMessage()
+            status.value = ERROR
           }
 
           override fun onComplete() {
 
           }
         })
-  }
-
-  fun onItemClick(item: RepositoryDetailsModel) {
-    trendingGitRepoListActivity.startActivity(RepoDetailsActivity.makeIntent(trendingGitRepoListActivity, item))
   }
 }

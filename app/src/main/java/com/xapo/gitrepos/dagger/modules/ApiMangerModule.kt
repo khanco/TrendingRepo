@@ -1,14 +1,25 @@
-package com.xapo.gitrepos.network
+package com.xapo.gitrepos.dagger.modules
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.xapo.gitrepos.network.Service
+import com.xapo.gitrepos.network.Urls
+import dagger.Module
+import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitProvider {
+@Module
+class ApiMangerModule {
 
-  fun createRetrofit(): Retrofit {
+  @Provides
+  fun providesService(retrofit: Retrofit): Service {
+    return retrofit.create(Service::class.java)
+  }
+
+  @Provides
+  fun provideRetrofit(): Retrofit {
 
     val interceptor = HttpLoggingInterceptor()
     interceptor.level = HttpLoggingInterceptor.Level.BODY
