@@ -12,6 +12,10 @@
         name="viewModel"
         type="com.xapo.gitrepos.screens.repodetails.mvvm.viewmodels.RepoDetailsViewModel"
         />
+    <variable
+        name="callback"
+        type="com.xapo.gitrepos.screens.repodetails.mvvm.views.IRepoDetailsCallbacks" />
+
   </data>
 
   <ScrollView
@@ -141,7 +145,7 @@
           android:id="@+id/tvMoreDetails"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:onClick="@{(v) -> viewModel.onMoreDetailsClick(model.url)}"
+          android:onClick="@{(v) -> callback.onMoreDetailsClick(model.url)}"
           android:padding="@dimen/dp20"
           android:text="@string/more_details"
           android:textColor="@color/link_color"

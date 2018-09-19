@@ -10,9 +10,10 @@ import com.xapo.gitrepos.commonmodels.RepositoryDetailsModel
 import com.xapo.gitrepos.databinding.ActivityRepoDetailsBinding
 import com.xapo.gitrepos.screens.repodetails.mvvm.viewmodels.RepoDetailsViewModel
 import com.xapo.gitrepos.utils.Constants
+import com.xapo.gitrepos.utils.UtilFunctions
 import org.parceler.Parcels
 
-class RepoDetailsActivity : AppCompatActivity() {
+class RepoDetailsActivity : AppCompatActivity(), IRepoDetailsCallbacks {
 
   private lateinit var repo: RepositoryDetailsModel
 
@@ -37,7 +38,12 @@ class RepoDetailsActivity : AppCompatActivity() {
 
   private fun initBinding() {
     val activityRepoDetailsBinding: ActivityRepoDetailsBinding = DataBindingUtil.setContentView(this,  R.layout.activity_repo_details)
+    activityRepoDetailsBinding.callback = this
     activityRepoDetailsBinding.model = repo
     activityRepoDetailsBinding.viewModel = RepoDetailsViewModel()
+  }
+
+  override fun onMoreDetailsClick(url: String) {
+    UtilFunctions.instance.launchWebUrl(this, url)
   }
 }
