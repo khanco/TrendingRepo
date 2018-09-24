@@ -30,9 +30,7 @@ class TrendingRepoListAdapter(var data: List<RepositoryDetailsModel>): RecyclerV
     }
   }
 
-  inner class Item(binding: ListItemRepoBinding): RecyclerView.ViewHolder(
-      binding.root
-  ) {
+  inner class Item(binding: ListItemRepoBinding): RecyclerView.ViewHolder(binding.root) {
     val bindingItem = binding
   }
 

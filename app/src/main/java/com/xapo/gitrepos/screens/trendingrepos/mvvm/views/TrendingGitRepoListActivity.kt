@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.xapo.gitrepos.R
 import com.xapo.gitrepos.commonmodels.RepositoryDetailsModel
 import com.xapo.gitrepos.databinding.ActivityTrendingRepoListBinding
@@ -13,13 +12,8 @@ import com.xapo.gitrepos.screens.repodetails.mvvm.views.RepoDetailsActivity
 import com.xapo.gitrepos.screens.trendingrepos.dagger.DaggerRepoListComponent
 import com.xapo.gitrepos.screens.trendingrepos.dagger.RepoListModule
 import com.xapo.gitrepos.screens.trendingrepos.mvvm.viewmodels.TrendingRepoListingViewModel
-import com.xapo.gitrepos.utils.GenericStatus
-import com.xapo.gitrepos.utils.GenericStatus.ERROR
-import com.xapo.gitrepos.utils.GenericStatus.NO_NETWORK
-import com.xapo.gitrepos.utils.GenericStatus.SUCCESS
 import com.xapo.gitrepos.utils.MyApp
 import com.xapo.gitrepos.utils.UtilFunctions
-import kotlinx.android.synthetic.main.activity_trending_repo_list.progressBar
 import kotlinx.android.synthetic.main.activity_trending_repo_list.recyclerTrendingRepoList
 import javax.inject.Inject
 
@@ -28,7 +22,7 @@ class TrendingGitRepoListActivity : AppCompatActivity(), TrendingRepoListAdapter
   @Inject
   lateinit var viewModel: TrendingRepoListingViewModel
 
-  private var listRepo: List<RepositoryDetailsModel> = emptyList()
+  private lateinit var repoList: List<RepositoryDetailsModel>
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -54,9 +48,7 @@ class TrendingGitRepoListActivity : AppCompatActivity(), TrendingRepoListAdapter
   private fun fetchTrendingRepos() {
 
     if (!UtilFunctions.instance.isNetworkAvailable(applicationContext)) {
-      UtilFunctions.instance.showToast(
-          applicationContext, resources.getString(R.string.no_internet)
-      )
+      UtilFunctions.instance.showToast(applicationContext, resources.getString(R.string.no_internet))
       return
     }
 
@@ -76,15 +68,15 @@ class TrendingGitRepoListActivity : AppCompatActivity(), TrendingRepoListAdapter
     )
   }
 
-  private fun showTrendingList(response: List<RepositoryDetailsModel>) {
-    listRepo = response
-    val trendingRepoAdapter = TrendingRepoListAdapter(listRepo)
+  private fun showTrendingList(repoList: List<RepositoryDetailsModel>) {
+    this.repoList = repoList
+    val trendingRepoAdapter = TrendingRepoListAdapter(repoList)
     trendingRepoAdapter.initInterface(this)
     recyclerTrendingRepoList.adapter = trendingRepoAdapter
   }
 
   override fun onItemClick(position: Int) {
-    startActivity(RepoDetailsActivity.makeIntent(applicationContext, listRepo[position]))
+    startActivity(RepoDetailsActivity.makeIntent(applicationContext, repoList[position]))
   }
 }
 

@@ -5,14 +5,10 @@ import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableBoolean
 import com.xapo.gitrepos.commonmodels.RepositoryDetailsModel
 import com.xapo.gitrepos.network.ApiManager
-import com.xapo.gitrepos.utils.GenericStatus
-import com.xapo.gitrepos.utils.GenericStatus.ERROR
-import com.xapo.gitrepos.utils.GenericStatus.SUCCESS
 import com.xapo.gitrepos.utils.UtilFunctions
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
-import java.util.Observable
 import javax.inject.Inject
 
 class TrendingRepoListingViewModel @Inject internal constructor(private val apiManager: ApiManager) {
