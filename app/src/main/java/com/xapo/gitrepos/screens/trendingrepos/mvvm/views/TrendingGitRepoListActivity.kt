@@ -48,20 +48,7 @@ class TrendingGitRepoListActivity : AppCompatActivity(), TrendingRepoListAdapter
   }
 
   private fun initObservation() {
-    viewModel.getStatus().observe(this, Observer { handleStatus(it) })
     viewModel.getData().observe(this, Observer { showTrendingList(it!!) })
-  }
-
-  private fun handleStatus(status: GenericStatus?) {
-    var msg = ""
-    when (status) {
-      NO_NETWORK -> msg = resources.getString(R.string.no_internet)
-      SUCCESS -> msg = resources.getString(R.string.success)
-      ERROR -> msg = resources.getString(R.string.generic_error_msg)
-    }
-
-    hideLoader()
-    UtilFunctions.instance.showToast(applicationContext, msg)
   }
 
   private fun fetchTrendingRepos() {
@@ -70,11 +57,9 @@ class TrendingGitRepoListActivity : AppCompatActivity(), TrendingRepoListAdapter
       UtilFunctions.instance.showToast(
           applicationContext, resources.getString(R.string.no_internet)
       )
-      hideLoader()
       return
     }
 
-    showLoader()
     viewModel.fetchTrendingRepos()
   }
 
@@ -96,15 +81,6 @@ class TrendingGitRepoListActivity : AppCompatActivity(), TrendingRepoListAdapter
     val trendingRepoAdapter = TrendingRepoListAdapter(listRepo)
     trendingRepoAdapter.initInterface(this)
     recyclerTrendingRepoList.adapter = trendingRepoAdapter
-    hideLoader()
-  }
-
-  private fun showLoader() {
-    progressBar.visibility = View.VISIBLE
-  }
-
-  private fun hideLoader() {
-    progressBar.visibility = View.GONE
   }
 
   override fun onItemClick(position: Int) {
